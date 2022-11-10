@@ -13,7 +13,7 @@ scalaVersion := "2.13.8"
 
 // It's possible to define many kinds of settings, such as:
 
-name := "hello-world"
+name := "functional-pancakes"
 organization := "ch.epfl.scala"
 version := "1.0"
 
@@ -75,3 +75,12 @@ libraryDependencies += "org.scala-lang.modules" %% "scala-parser-combinators" % 
 
 // To learn more about multi-project builds, head over to the official sbt
 // documentation at http://www.scala-sbt.org/documentation.html
+
+val circeVersion = "0.14.3"
+
+libraryDependencies ++= Seq(
+  "io.circe" %% "circe-core",
+  "io.circe" %% "circe-generic",
+  "io.circe" %% "circe-generic-extras",
+  "io.circe" %% "circe-parser"
+).map(_ % circeVersion)
