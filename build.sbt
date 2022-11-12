@@ -14,9 +14,11 @@ libraryDependencies ++= Seq(
   "co.fs2" %% "fs2-reactive-streams" % fs2Version,
   "co.fs2" %% "fs2-scodec" % fs2Version,
   "com.softwaremill.sttp.tapir" %% "tapir-core" %  "1.2.0",
+  "com.softwaremill.sttp.tapir" %% "tapir-json-circe" % "1.2.1",
   "com.softwaremill.sttp.shared" %% "core" % "1.3.11",
   "com.softwaremill.sttp.model" %% "core" % "1.5.2",
   "com.softwaremill.sttp.client3" %% "core" % "3.8.3",
+  "com.softwaremill.sttp.shared" %% "fs2" % "1.3.11",
   "io.circe" %% "circe-core" % circeVersion,
   "io.circe" %% "circe-generic" % circeVersion,
   "io.circe" %% "circe-generic-extras" % circeVersion,
@@ -37,3 +39,4 @@ libraryDependencies ++= Seq(
 
 // To learn more about multi-project builds, head over to the official sbt
 // documentation at http://www.scala-sbt.org/documentation.html
+

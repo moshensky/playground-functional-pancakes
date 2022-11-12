@@ -2,7 +2,8 @@ package infra
 
 import domain._
 import io.circe._
-import io.circe.generic.extras.Configuration
+// import io.circe.generic.extras.Configuration
+import io.circe.generic.extras._
 import io.circe.generic.extras.semiauto.deriveConfiguredCodec
 
 trait PancakeIngredientCodecs {

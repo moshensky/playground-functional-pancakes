@@ -1,25 +1,40 @@
 package infra
 
 import domain._
-import sttp.tapir.{CodecFormat, Endpoint, endpoint, query, stringBody, webSocketBody}
-import fs2.{Pipe, Stream}
+import fs2.Pipe
 import cats.effect.IO
 import sttp.capabilities.WebSockets
+import sttp.capabilities.fs2.Fs2Streams
+import sttp.tapir._
+import sttp.tapir.Codec.JsonCodec
+import sttp.tapir.json.circe._
+import Json._
 
-// https://github.com/softwaremill/sttp-shared/blob/86309df2ea9c668d88f82fef073d64088b5c5921/fs2/src/main/scala/sttp/capabilities/fs2/Fs2Streams.scala
-// TODO: Where are my types!
-// import sttp.capabilities.fs2.Fs2Streams
 
 object HttpApi {
   type Output = Pipe[IO, PancakeIngredient, PancakeStatus]
   type Capabilities = WebSockets with Fs2Streams[IO]
 
-   val pancakesEndpoint: Endpoint[Int, String, Output, Capabilities] =
-     endpoint
-       .in("pancakes")
-       .in(query[Int]("pans"))
-       .errorOut(stringBody)
-       .out(webSocketBody[
-         PancakeIngredient, CodecFormat.Json,
-         PancakeStatus, CodecFormat.Json](Fs2Streams[IO]))
+  implicit val jsonCodecForPancakeIngredient: JsonCodec[PancakeIngredient] = ???
+  implicit val jsonCodecForPancakeStatus: JsonCodec[PancakeStatus] = ???
+
+  val pancakesEndpoint: Endpoint[Unit, Int, String, Output, Capabilities] = {
+    val queryPans = query[Int]("pans")
+      .description("The number of frying pans to use in parallel")
+      .example(2)
+      .validate(Validator.min(1))
+
+    val out = webSocketBody[
+      PancakeIngredient,
+      CodecFormat.Json,
+      PancakeStatus,
+      CodecFormat.Json
+    ](Fs2Streams[IO])
+
+    endpoint
+      .in("pancakes")
+      .in(queryPans)
+      .errorOut(stringBody)
+      .out(out)
+  }
 }
