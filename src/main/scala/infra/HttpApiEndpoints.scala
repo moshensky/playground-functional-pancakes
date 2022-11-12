@@ -11,7 +11,7 @@ import sttp.tapir.json.circe._
 import sttp.tapir.generic.auto._
 import Json._
 
-object HttpApi {
+object HttpApiEndpoints {
   type Output = Pipe[IO, PancakeIngredient, PancakeStatus]
   type Capabilities = WebSockets with Fs2Streams[IO]
 
