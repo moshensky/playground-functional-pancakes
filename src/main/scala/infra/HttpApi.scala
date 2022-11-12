@@ -8,15 +8,12 @@ import sttp.capabilities.fs2.Fs2Streams
 import sttp.tapir._
 import sttp.tapir.Codec.JsonCodec
 import sttp.tapir.json.circe._
+import sttp.tapir.generic.auto._
 import Json._
-
 
 object HttpApi {
   type Output = Pipe[IO, PancakeIngredient, PancakeStatus]
   type Capabilities = WebSockets with Fs2Streams[IO]
-
-  implicit val jsonCodecForPancakeIngredient: JsonCodec[PancakeIngredient] = ???
-  implicit val jsonCodecForPancakeStatus: JsonCodec[PancakeStatus] = ???
 
   val pancakesEndpoint: Endpoint[Unit, Int, String, Output, Capabilities] = {
     val queryPans = query[Int]("pans")
