@@ -8,4 +8,4 @@ case class Eggs(count: Int) extends PancakeIngredient
 sealed trait PancakeStatus
 case class IngredientsReceived(ingredient: PancakeIngredient)
     extends PancakeStatus
-case object PancakeReade extends PancakeStatus
+case object PancakeReady extends PancakeStatus
