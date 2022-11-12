@@ -8,6 +8,7 @@ import io.circe.generic.extras.semiauto.deriveConfiguredCodec
 
 trait PancakeIngredientCodecs {
   private implicit val config: Configuration = Configuration.default
+    // TODO: sync discrimantor with tapir schema
     .withDiscriminator("ingredient")
     .withSnakeCaseConstructorNames
 
@@ -17,6 +18,7 @@ trait PancakeIngredientCodecs {
 
 trait PancakeStatusCodecs extends PancakeIngredientCodecs {
   private implicit val config: Configuration = Configuration.default
+    // TODO: sync discrimantor with tapir schema
     .withDiscriminator("status")
     .withSnakeCaseConstructorNames
 
